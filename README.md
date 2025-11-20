@@ -1,2 +1,92 @@
-# zendesk-field-dependency-filter
+
+# Field Dependency Filter for Zendesk
+
 Automatically filters Zendesk ticket dropdown field options based on parent field selections.
+
+---
+
+## Features
+
+- Dynamically filters child dropdown options according to the selected parent field value
+- Easy configuration of custom filter rules to match your business logic
+- Supports complex field dependencies for advanced workflows
+- Improves agent efficiency and accuracy
+- Reduces clutter and confusion in ticket forms
+
+---
+
+## How It Works
+
+When an agent selects a value in a parent dropdown field, only the relevant options will appear in the dependent child field. This guides agents through the ticket process, ensuring they select valid and context-sensitive options.
+
+---
+
+## Installation
+
+### Prerequisites
+
+- Zendesk Support account with admin access
+- [Zendesk CLI](https://developer.zendesk.com/documentation/apps/app-developer-guide/zcli/) installed
+
+### Steps
+
+1. Package the app using the Zendesk CLI:
+	 ```sh
+	 zcli apps:package
+	 ```
+2. Upload the generated zip file to your Zendesk instance via the Admin Center.
+3. Install the app in your Zendesk account.
+4. Configure the filter rules in the app settings according to your field dependencies.
+5. Save and reload your ticket interface to activate the filtering.
+
+---
+
+## Configuration
+
+In the app settings, define your filter rules using the following format:
+
+```json
+{
+	"rules": [
+		{
+			"name": "ContactReason→ContactSubreason",
+			"parent": "23699053423900",
+			"child": "23700076556188",
+			"mapping": {
+				"r_refund": [
+					"sr_checking_refund_status",
+					"sr_made_an_error_booking",
+					"sr_no_longer_travelling"
+				],
+				"r_change_exchange": ["sr_change_date_time"],
+				"r_ticket_delivery_collection": [
+					"sr_collection_ticket_machine",
+					"sr_digital_ticket"
+				]
+			}
+		}
+	]
+}
+```
+
+Refer to your Zendesk field IDs and option values when configuring rules.
+
+---
+
+## Data Disclosure & Privacy Notice
+
+Field Dependency Filter accesses and processes the following data within your Zendesk account:
+
+- Ticket field metadata (field IDs, option values)
+- Agent selections in ticket forms
+- Filter rules configured by administrators
+
+No ticket content, user data, or sensitive information is stored or transmitted outside your Zendesk instance. All processing occurs client-side within the Zendesk interface.
+
+For more information, please review our [Privacy Policy](https://github.com/braamcamp/zendesk-field-dependency-filter/blob/main/PRIVACY.md) or contact support for details about data handling and compliance.
+
+---
+
+## Support
+
+For questions, issues, or feature requests, please open an issue on [GitHub](https://github.com/braamcamp/zendesk-field-dependency-filter/issues) or contact the author at andre.oliveira@zendesk.com.
