@@ -6,7 +6,7 @@
     "url": "https://github.com/braamcamp/zendesk-field-dependency-filter"
   },
   "defaultLocale": "en",
-  "private": true,
+  "private": false,
   "location": {
     "support": {
       "ticket_sidebar": {
