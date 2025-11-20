@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1"
+    />
+
+    <script>
+      window.onerror = function(message, source, lineno, colno, error) {
+        console.log({error});
+        window.parent.postMessage({
+          type: 'iframe-error',
+          error: error?.toString(),
+          stack: error?.stack,
+          message,
+          source,
+          lineno,
+          colno
+        }, '*');
+        return false;
+      };
+
+      // Also catch unhandled promise rejections
+      window.addEventListener('unhandledrejection', function(event) {
+        window.parent.postMessage({
+          type: 'iframe-error',
+          error: event.reason?.toString(),
+          stack: event.reason?.stack
+        }, '*');
+      });
+    </script>
+
+    <style>
+        html {
+          --tw-bg-opacity: 1;
+          --tw-text-opacity: 1;
+          font-feature-settings: "kern", "kern";
+          background-color: #fff;
+          box-sizing: border-box;
+          overflow-y: auto!important;
+          color: #293239;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, sans-serif;
+          font-kerning: normal;
+          font-size: 14px;
+          line-height: 20px;
+          min-height: 100%;
+      }
+
+      *,:after,:before{
+      	box-sizing:border-box;
+      }
+
+      html{
+      	font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+      	line-height:1.15;
+      	-webkit-text-size-adjust:100%;
+      	-moz-tab-size:4;
+      	  -o-tab-size:4;
+      	     tab-size:4;
+      }
+
+      body{
+      	margin:0;
+      }
+
+      b,strong{
+      	font-weight:bolder;
+      }
+
+      code,kbd,pre,samp{
+      	font-family:ui-monospace,SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+      	font-size:1em;
+      }
+
+      small{
+      	font-size:80%;
+      }
+
+      sub,sup{
+      	font-size:75%;
+      	line-height:0;
+      	position:relative;
+      	vertical-align:baseline;
+      }
+
+      sub{
+      	bottom:-.25em;
+      }
+
+      sup{
+      	top:-.5em;
+      }
+
+      table{
+      	border-color:currentcolor;
+      }
+
+      button,input,optgroup,select,textarea{
+      	font-family:inherit;
+      	font-size:100%;
+      	line-height:1.15;
+      	margin:0;
+      }
+
+      [type=button],[type=reset],[type=submit],button{
+      	-webkit-appearance:button;
+      }
+
+      legend{
+      	padding:0;
+      }
+
+      progress{
+      	vertical-align:baseline;
+      }
+
+      ::-webkit-inner-spin-button,::-webkit-outer-spin-button{
+      	height:auto;
+      }
+
+      [type=search]{
+      	-webkit-appearance:textfield;
+      	outline-offset:-2px;
+      }
+
+      ::-webkit-search-decoration{
+      	-webkit-appearance:none;
+      }
+
+      ::-webkit-file-upload-button{
+      	-webkit-appearance:button;
+      	font:inherit;
+      }
+
+      summary{
+      	display:list-item;
+      }
+
+      /* Additional normalization (kept distinct from initial block for clarity) */
+      html {
+      	background-color: #fff;
+      	min-height: 100%;
+      	box-sizing: border-box;
+      	overflow-y: scroll;
+      	line-height: 20px;
+      	color: #293239;
+      	font-feature-settings: "kern", "kern";
+      	font-kerning: normal;
+      	font-family: system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",Arial,sans-serif;
+      	font-size: 14px;
+      }
+
+      * {
+      	font-weight: inherit;
+      }
+
+      *,:after,:before {
+      	box-sizing: inherit;
+      }
+
+      a {
+      	color: #1f73b7;
+      }
+
+      b {
+      	font-weight: 600;
+      }
+
+      button {
+      	cursor: pointer;
+      	padding: 0;
+      }
+
+      button,input,optgroup,select,textarea {
+      	line-height: inherit;
+      	font-family: inherit;
+      }
+
+      code {
+      	font-size: .95em;
+      }
+
+      code,kbd,pre,samp {
+      	font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+      }
+
+      em {
+      	font-style: inherit;
+      }
+
+      fieldset,iframe {
+      	border-width: 0;
+      }
+
+      h1,h2,h3,h4,h5,h6 {
+      	font-size: inherit;
+      }
+
+      blockquote,dd,dl,fieldset,figure,h1,h2,h3,h4,h5,h6,hr,ol,p,pre,ul {
+      	margin: 0;
+      	padding: 0;
+      }
+
+      hr {
+      	border: none;
+      	border-top: 1px solid;
+      	border-color: #d8dcde;
+      }
+
+      ins,u {
+      	text-decoration-line: none;
+      }
+
+      ol,ul {
+      	list-style-type: none;
+      }
+
+      img {
+      	max-width: 100%;
+      }
+
+      strong {
+      	font-weight: inherit;
+      }
+
+      svg {
+      	max-height: 100%;
+      }
+
+      [tabindex="-1"]:focus {
+      	outline: none !important;
+      }
+    </style>
+
+    <title>Zendesk App Builder</title>
+    <script type="importmap">
+      {"imports":{"react":"https://static.zdassets.com/app_builder/react@18.js","react-dom":"https://static.zdassets.com/app_builder/react-dom@18.js","react-dom/client":"https://static.zdassets.com/app_builder/react-dom@18/client.js","styled-components":"https://static.zdassets.com/app_builder/styled-components@6.x.js","pdfjs-dist":"https://static.zdassets.com/app_builder/pdfjs-dist@4.10.38.js","tesseract.js":"https://static.zdassets.com/app_builder/tesseract.js@6.0.0.js","@zendeskgarden/react-theming":"https://static.zdassets.com/app_builder/@zendeskgarden/react-theming@9.x.js","@zendeskgarden/react-buttons":"https://static.zdassets.com/app_builder/@zendeskgarden/react-buttons@9.x.js","@zendeskgarden/react-grid":"https://static.zdassets.com/app_builder/@zendeskgarden/react-grid@9.x.js","@zendeskgarden/react-forms":"https://static.zdassets.com/app_builder/@zendeskgarden/react-forms@9.x.js","@zendeskgarden/react-tables":"https://static.zdassets.com/app_builder/@zendeskgarden/react-tables@9.x.js","@zendeskgarden/react-typography":"https://static.zdassets.com/app_builder/@zendeskgarden/react-typography@9.x.js","@zendeskgarden/react-loaders":"https://static.zdassets.com/app_builder/@zendeskgarden/react-loaders@9.x.js","@zendeskgarden/react-tags":"https://static.zdassets.com/app_builder/@zendeskgarden/react-tags@9.x.js","@zendeskgarden/react-tabs":"https://static.zdassets.com/app_builder/@zendeskgarden/react-tabs@9.x.js","@zendeskgarden/react-accordions":"https://static.zdassets.com/app_builder/@zendeskgarden/react-accordions@9.x.js","@zendeskgarden/react-tooltips":"https://static.zdassets.com/app_builder/@zendeskgarden/react-tooltips@9.x.js","@zendeskgarden/react-modals":"https://static.zdassets.com/app_builder/@zendeskgarden/react-modals@9.x.js","@zendeskgarden/react-notifications":"https://static.zdassets.com/app_builder/@zendeskgarden/react-notifications@9.x.js","@zendeskgarden/react-pagination":"https://static.zdassets.com/app_builder/@zendeskgarden/react-pagination@9.x.js","@zendeskgarden/react-dropdowns":"https://static.zdassets.com/app_builder/@zendeskgarden/react-dropdowns@9.x.js","recharts":"https://static.zdassets.com/app_builder/recharts@3.2.1.js"}}
+    </script>
+    <script
+      type="text/javascript"
+      src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"
+    ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/javascript">
+      window.zafClient = ZAFClient.init();
+
+      window?.zafClient?.invoke('resize', { width: '100%', height: '550px' });
+    </script>
+
+    <script type="module">
+          var __defProp = Object.defineProperty;
+      var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+      var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+      var __async = (__this, __arguments, generator) => {
+        return new Promise((resolve, reject) => {
+          var fulfilled = (value) => {
+            try {
+              step(generator.next(value));
+            } catch (e) {
+              reject(e);
+            }
+          };
+          var rejected = (value) => {
+            try {
+              step(generator.throw(value));
+            } catch (e) {
+              reject(e);
+            }
+          };
+          var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+          step((generator = generator.apply(__this, __arguments)).next());
+        });
+      };
+
+      // vfs:index.jsx
+      import { createRoot } from "react-dom/client";
+      import React2, { useState as useState2, useEffect as useEffect2 } from "react";
+      import { ThemeProvider } from "@zendeskgarden/react-theming";
+
+      // vfs:components/FieldDependencyManager.jsx
+      import React, { useState, useEffect } from "react";
+      import { Alert, Title } from "@zendeskgarden/react-notifications";
+
+      // vfs:styles/FieldDependencyManager.js
+      import styled from "styled-components";
+      var Container = styled.div`
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      `;
+      var StatusMessage = styled.div`
+        font-size: 14px;
+        color: #68737d;
+        padding: 8px 0;
+      `;
+
+      // vfs:components/FieldDependencyManager.jsx
+      var FieldDependencyManager = () => {
+        const [rules, setRules] = useState([]);
+        const [status, setStatus] = useState("Initializing...");
+        const [error, setError] = useState(null);
+        const [activeRules, setActiveRules] = useState([]);
+        useEffect(() => {
+          initializeApp();
+        }, []);
+        const initializeApp = () => __async(void 0, null, function* () {
+          try {
+            const metadata = yield window.zafClient.metadata();
+            const filterRules = metadata.settings.filter_rules;
+            const rulesConfig = filterRules ? JSON.parse(filterRules) : { rules: [] };
+            if (!rulesConfig.rules || rulesConfig.rules.length === 0) {
+              setError("No rules configured. Please configure the rules in the app settings.");
+              setStatus("No configuration");
+              return;
+            }
+            setRules(rulesConfig.rules);
+            setStatus(`${rulesConfig.rules.length} active rule(s)`);
+            setupEventListeners(rulesConfig.rules);
+            yield applyInitialRules(rulesConfig.rules);
+          } catch (err) {
+            setError("Error loading configuration: " + JSON.stringify(err));
+            setStatus("Error");
+          }
+        });
+        const setupEventListeners = (rulesConfig) => {
+          rulesConfig.forEach((rule) => {
+            const parentFieldName = `custom_field_${rule.parent}`;
+            const eventName = `ticket.${parentFieldName}.changed`;
+            window.zafClient.on(eventName, (newValue) => __async(void 0, null, function* () {
+              yield handleParentFieldChange(rule, newValue);
+            }));
+          });
+        };
+        const applyInitialRules = (rulesConfig) => __async(void 0, null, function* () {
+          const ticketFieldsData = yield window.zafClient.get("ticketFields");
+          const ticketFields = ticketFieldsData.ticketFields;
+          for (const rule of rulesConfig) {
+            const parentFieldName = `custom_field_${rule.parent}`;
+            const childFieldName = `custom_field_${rule.child}`;
+            const parentField = ticketFields.find((f) => f.name === parentFieldName);
+            const childField = ticketFields.find((f) => f.name === childFieldName);
+            if (!parentField || !childField) {
+              continue;
+            }
+            const ticketData = yield window.zafClient.get(`ticket.customField:${parentFieldName}`);
+            const parentValue = ticketData[`ticket.customField:${parentFieldName}`];
+            yield applyChildFieldFiltering(rule, parentValue, childField);
+          }
+        });
+        const handleParentFieldChange = (rule, newParentValue) => __async(void 0, null, function* () {
+          try {
+            const childFieldName = `custom_field_${rule.child}`;
+            const ticketFieldsData = yield window.zafClient.get("ticketFields");
+            const childField = ticketFieldsData.ticketFields.find((f) => f.name === childFieldName);
+            if (!childField) {
+              return;
+            }
+            const currentChildData = yield window.zafClient.get(`ticket.customField:${childFieldName}`);
+            const currentChildValue = currentChildData[`ticket.customField:${childFieldName}`];
+            yield applyChildFieldFiltering(rule, newParentValue, childField);
+            if (newParentValue && currentChildValue) {
+              const allowedValues = rule.mapping[newParentValue] || [];
+              console.log({ allowedValues, currentChildValue });
+              if (!allowedValues.includes(currentChildValue)) {
+                yield window.zafClient.set(`ticket.customField:${childFieldName}`, null);
+                setActiveRules((prev) => [...prev, `${rule.name}: Child field cleared`]);
+                setTimeout(() => {
+                  setActiveRules((prev) => prev.filter((r) => r !== `${rule.name}: Child field cleared`));
+                }, 3e3);
+              }
+            }
+          } catch (err) {
+            setError("Error processing change: " + JSON.stringify(err));
+          }
+        });
+        const applyChildFieldFiltering = (rule, parentValue, childField) => __async(void 0, null, function* () {
+          const childFieldName = `custom_field_${rule.child}`;
+          if (!parentValue) {
+            for (let i = 0; i < childField.optionValues.length; i++) {
+              if (i === 0) {
+                yield window.zafClient.invoke(`ticketFields:${childFieldName}.optionValues.${i}.show`);
+              } else {
+                yield window.zafClient.invoke(`ticketFields:${childFieldName}.optionValues.${i}.hide`);
+              }
+            }
+            return;
+          }
+          const allowedValues = rule.mapping[parentValue] || [];
+          for (let i = 0; i < childField.optionValues.length; i++) {
+            const option = childField.optionValues[i];
+              if (i === 0 || allowedValues.includes(option.value)) {
+                yield window.zafClient.invoke(`ticketFields:${childFieldName}.optionValues.${i}.show`);
+              } else {
+                yield window.zafClient.invoke(`ticketFields:${childFieldName}.optionValues.${i}.hide`);
+            }
+          }
+        });
+        return React.createElement(Container, null, React.createElement(Title, null, "Field Dependency Filter"), React.createElement(StatusMessage, null, "This app automatically filters dropdown options based on parent field selections. When you select a value in a parent field, only relevant options will appear in dependent child fields."), React.createElement(StatusMessage, null, status), error && React.createElement(Alert, { type: "error" }, error), activeRules.length > 0 && React.createElement(Alert, { type: "info" }, activeRules[activeRules.length - 1]));
+      };
+
+      // vfs:index.jsx
+      var App = () => {
+        const [isReady, setIsReady] = useState2(false);
+        useEffect2(() => {
+          window.zafClient.invoke("resize", { width: "100%", height: "550px" });
+          setIsReady(true);
+        }, []);
+        if (!isReady) {
+          return React2.createElement(ThemeProvider, null, React2.createElement("div", null, "Loading..."));
+        }
+        return React2.createElement(ThemeProvider, null, React2.createElement(FieldDependencyManager, null));
+      };
+      var index_default = App;
+      var ErrorBoundary = class extends React2.Component {
+        constructor(props) {
+          super(props);
+          __publicField(this, "copyErrorToClipboard", () => {
+            var _a, _b;
+            const errorMessage = ((_a = this.state.error) == null ? void 0 : _a.toString()) || "Unknown error";
+            const errorStack = ((_b = this.state.error) == null ? void 0 : _b.stack) || "";
+            const fullErrorText = errorStack || errorMessage;
+            navigator.clipboard.writeText(fullErrorText);
+            this.setState({ copied: true });
+            setTimeout(() => {
+              this.setState({ copied: false });
+            }, 2e3);
+          });
+          this.state = {
+            hasError: false,
+            error: null,
+            errorInfo: null,
+            copied: false
+          };
+        }
+        static getDerivedStateFromError(error) {
+          return { hasError: true, error };
+        }
+        componentDidCatch(error, errorInfo) {
+          this.setState({ errorInfo });
+          const errorMessage = error.toString();
+          const errorStack = error.stack || "";
+          window.parent.postMessage({
+            type: "iframe-error",
+            error: errorMessage,
+            stack: errorStack
+          }, "*");
+        }
+        render() {
+          var _a, _b;
+          if (this.state.hasError) {
+            const errorStack = ((_a = this.state.error) == null ? void 0 : _a.stack) || ((_b = this.state.error) == null ? void 0 : _b.toString()) || "Unknown error";
+            return React2.createElement("div", { style: {
+              fontSize: "16px",
+              display: "grid",
+              padding: "20px"
+            } }, React2.createElement("div", { style: {
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%"
+            } }, React2.createElement("h4", { style: {
+              marginBottom: "8px",
+              color: "#d93f4c"
+            } }, "An error occurred in your application"), React2.createElement("p", { style: {
+              marginBottom: "16px",
+              color: "#49545c",
+              maxWidth: "600px"
+            } }, "To resolve this issue, please copy the error message below and paste it back into the app builder. App Builder will automatically attempt to fix this issue."), React2.createElement(
+              "button",
+              {
+                onClick: this.copyErrorToClipboard,
+                title: "Click to copy error message",
+                style: {
+                  marginBottom: "16px",
+                  padding: "8px 16px",
+                  border: "1px solid #c1c3c5",
+                  borderRadius: "4px",
+                  background: "white",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  ":hover": {
+                    background: "#f8f9f9",
+                    borderColor: "#68737d"
+                  }
+                }
+              },
+              this.state.copied ? React2.createElement(React2.Fragment, null, React2.createElement("span", { style: { color: "#1f73b7" } }, "Copied!")) : React2.createElement(React2.Fragment, null, "Copy error")
+            ), React2.createElement("pre", { style: {
+              background: "#f8f9f9",
+              padding: "16px",
+              borderRadius: "4px",
+              maxWidth: "600px",
+              overflow: "auto",
+              textAlign: "left",
+              whiteSpace: "pre-wrap",
+              fontSize: "12px",
+              lineHeight: "1.5"
+            } }, errorStack)));
+          }
+          return this.props.children;
+        }
+      };
+      var AppWithErrorBoundary = () => React2.createElement(ErrorBoundary, null, React2.createElement(App, null));
+      try {
+        createRoot(document.getElementById("root")).render(React2.createElement(AppWithErrorBoundary, null));
+      } catch (error) {
+        console.log({ error });
+        window.parent.postMessage({
+          type: "iframe-error",
+          error: error.toString(),
+          stack: error.stack || ""
+        }, "*");
+      }
+      export {
+        index_default as default
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "Field Dependency Filter",
+  "author": {
+    "name": "André Oliveira",
+    "email": "andre.oliveira@zendesk.com",
+    "url": "https://github.com/braamcamp/zendesk-field-dependency-filter"
+  },
+  "defaultLocale": "en",
+  "private": true,
+  "location": {
+    "support": {
+      "ticket_sidebar": {
+        "url": "assets/index.html",
+        "flexible": true
+      },
+      "new_ticket_sidebar": {
+        "url": "assets/index.html",
+        "flexible": true
+      }
+    }
+  },
+  "parameters": [
+    {
+      "name": "filter_rules",
+      "type": "text",
+      "required": true
+    }
+  ],
+  "version": "1.0.1",
+  "frameworkVersion": "2.0"
+}

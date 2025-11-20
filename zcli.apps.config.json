@@ -1,0 +1,5 @@
+{
+    "parameters": {
+        "filter_rules": "{\"rules\":[{\"name\":\"ContactReason→ContactSubreason\",\"parent\":\"23699053423900\",\"child\":\"23700076556188\",\"mapping\":{\"r_refund\":[\"sr_checking_refund_status\",\"sr_made_an_error_booking\",\"sr_no_longer_travelling\",\"sr_train_cancelled\",\"sr_train_cancelled_future\",\"sr_train_cancelled_past\",\"sr_train_delayed\"],\"r_change_exchange\":[\"sr_change_date_time\"],\"r_all_coach_enqs\":[\"sr_all_coach_enqs\"],\"r_making_booking\":[\"sr_pre_sale_enquiry\"],\"r_need_help_acc\":[\"sr_account\"],\"r_need_help_booking_eu\":[\"sr_eu\"],\"r_need_help_booking_uk\":[\"sr_uk\"],\"r_other_aftersales_query\":[\"sr_best_price_guarantee\",\"sr_disruption\",\"sr_havent_received_conf_email\",\"sr_invoice\",\"sr_other\",\"sr_railcards\",\"sr_seat_reservations\",\"sr_update_acc_details\",\"sr_when_off_peak_trains\"],\"r_season_ticket_enq\":[\"sr_change\",\"sr_lost_damaged_ticket\",\"sr_refund\",\"sr_season_other\"],\"r_ticket_delivery_collection\":[\"sr_collection_ticket_machine\",\"sr_digital_ticket\",\"sr_postal_ticket\",\"sr_havent_received_conf_email\"]}}]}"
+    }
+}
