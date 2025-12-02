@@ -43,7 +43,16 @@ When an agent selects a value in a parent dropdown field, only the relevant opti
 
 ## Configuration
 
-In the app settings, define your filter rules using the following format:
+Each rule you add to the app settings describes a single parent→child relationship and accepts these properties:
+
+- `name`: Friendly label shown only inside the app configuration page.
+- `parent`: Numeric ID of the parent dropdown field.
+- `child`: Numeric ID of the dependent dropdown field that should change based on the parent.
+- `mapping`: Dictionary where every key is a parent option tag and the value is an array listing the tags of the child options that should remain visible when that parent option is selected.
+
+Because the mapping uses tags, make sure you read them directly from the option settings (not the displayed labels). Every parent option you want to handle must have an entry, and each entry enumerates all allowed child option tags for that parent value.
+
+Example configuration:
 
 ```json
 {
