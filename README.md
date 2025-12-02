@@ -58,19 +58,19 @@ Example configuration:
 {
 	"rules": [
 		{
-			"name": "ContactReason→ContactSubreason",
-			"parent": "23699053423900",
-			"child": "23700076556188",
+			"name": "Reason → Subreason",
+			"parent": "123",
+			"child": "456",
 			"mapping": {
-				"r_refund": [
-					"sr_checking_refund_status",
-					"sr_made_an_error_booking",
-					"sr_no_longer_travelling"
+				"reason1": [
+					"subreason1",
+					"subreason2",
+					"subreason3"
 				],
-				"r_change_exchange": ["sr_change_date_time"],
-				"r_ticket_delivery_collection": [
-					"sr_collection_ticket_machine",
-					"sr_digital_ticket"
+				"reason2": [
+					"subreason4",
+					"subreason5",
+					"subreason6"
 				]
 			}
 		}
